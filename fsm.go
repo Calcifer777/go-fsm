@@ -6,7 +6,7 @@ type StateType int
 
 const (
 	Start StateType = iota
-	Other
+	Inner
 	Terminal
 )
 
@@ -54,6 +54,7 @@ func (r *Runner) Next() bool {
 			transition = t
 		}
 	}
+	// Fire Event
 	log.Printf("Firing event %s from state %s", transition.event.name, r.currentState.id)
 	r.context = transition.event.action(r.context)
 	r.currentState = transition.to
