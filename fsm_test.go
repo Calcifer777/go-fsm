@@ -54,9 +54,9 @@ func TestFork(t *testing.T) {
 	ifOff := func(ctx Context) bool { return Choice("status", "turn off", ctx) }
 
 	transitions := []Transition{
-		{from: &states[0], to: &states[1], rule: AlwaysFire, event: noOp},
-		{from: &states[0], to: &states[2], rule: ifOn, event: noOp},
-		{from: &states[1], to: &states[3], rule: ifOff, event: noOp},
+		{from: &states[0], to: &states[1], rule: ifOn, event: noOp},
+		{from: &states[0], to: &states[2], rule: ifOff, event: noOp},
+		{from: &states[1], to: &states[3], rule: AlwaysFire, event: noOp},
 		{from: &states[2], to: &states[3], rule: AlwaysFire, event: noOp},
 	}
 
@@ -64,7 +64,7 @@ func TestFork(t *testing.T) {
 
 	runner := Runner{
 		fsm:          fsm,
-		context:      nil,
+		context:      Context{"status": "turn on"},
 		currentState: &states[0],
 	}
 
