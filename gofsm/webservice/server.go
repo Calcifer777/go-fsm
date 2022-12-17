@@ -15,5 +15,5 @@ func (s *Server) CreateUser(ctx context.Context, in *pb.UserRequest) (*pb.User, 
 }
 
 func (s *Server) Greet(ctx context.Context, in *pb.GreetRequest) (*pb.GreetResponse, error) {
-	return &pb.GreetResponse{Message: fmt.Sprintf("Hi %s!", in.Name)}, nil
+	return &pb.GreetResponse{Message: fmt.Sprintf("Hi %s, nice to meet you!", in.Name)}, nil
 }
