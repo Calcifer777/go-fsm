@@ -27,3 +27,15 @@
 
 - https://itnext.io/build-grpc-server-with-golang-go-step-by-step-b3f5abcf9e0e
 - https://grpc.io/docs/
+
+
+## How to
+
+Compile proto:
+```bash
+cd gofsm/webservice
+protoc --go_out=.  \
+  --go_opt=paths=source_relative  \
+  --go-grpc_out=.  \
+  --go-grpc_opt=paths=source_relative  protos/*
+```
