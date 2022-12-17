@@ -1,4 +1,4 @@
-package main
+package fsm
 
 import "log"
 
@@ -11,8 +11,8 @@ const (
 )
 
 type State struct {
-	id        string
-	stateType StateType
+	Id        string
+	StateType StateType
 }
 
 type Context map[string]string
@@ -44,7 +44,7 @@ type Runner struct {
 }
 
 func (r *Runner) Next() bool {
-	if r.currentState.stateType == Terminal {
+	if r.currentState.StateType == Terminal {
 		return false
 	}
 	// Find relevant transition
@@ -55,7 +55,7 @@ func (r *Runner) Next() bool {
 		}
 	}
 	// Fire Event
-	log.Printf("Firing event %s from state %s", transition.event.name, r.currentState.id)
+	log.Printf("Firing event %s from state %s", transition.event.name, r.currentState.Id)
 	r.context = transition.event.action(r.context)
 	r.currentState = transition.to
 	return true

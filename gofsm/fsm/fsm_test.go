@@ -1,4 +1,4 @@
-package main
+package fsm
 
 import (
 	"log"
@@ -14,9 +14,9 @@ func TestSimpleFsm(t *testing.T) {
 	noOp := Event{name: "no-op", action: NoOp}
 
 	states := []State{
-		{id: "start", stateType: Start},
-		{id: "step1", stateType: Inner},
-		{id: "end", stateType: Terminal},
+		{Id: "start", StateType: Start},
+		{Id: "step1", StateType: Inner},
+		{Id: "end", StateType: Terminal},
 	}
 
 	transitions := []Transition{
@@ -32,11 +32,11 @@ func TestSimpleFsm(t *testing.T) {
 		currentState: &states[0],
 	}
 
-	log.Printf("FSM starting state: %s", runner.currentState.id)
+	log.Printf("FSM starting state: %s", runner.currentState.Id)
 	runner.Run()
-	log.Printf("FSM ending state: %s", runner.currentState.id)
-	if runner.currentState.id != "end" {
-		t.Errorf("Expected terminal state in FSM, got %s", runner.currentState.id)
+	log.Printf("FSM ending state: %s", runner.currentState.Id)
+	if runner.currentState.Id != "end" {
+		t.Errorf("Expected terminal state in FSM, got %s", runner.currentState.Id)
 	}
 }
 
@@ -44,10 +44,10 @@ func TestFork(t *testing.T) {
 	noOp := Event{name: "no-op", action: NoOp}
 
 	states := []State{
-		{id: "start", stateType: Start},
-		{id: "on", stateType: Inner},
-		{id: "off", stateType: Inner},
-		{id: "end", stateType: Terminal},
+		{Id: "start", StateType: Start},
+		{Id: "on", StateType: Inner},
+		{Id: "off", StateType: Inner},
+		{Id: "end", StateType: Terminal},
 	}
 
 	ifOn := func(ctx Context) bool { return Choice("status", "turn on", ctx) }
@@ -69,8 +69,8 @@ func TestFork(t *testing.T) {
 	}
 
 	ok := runner.Next()
-	if !ok || runner.currentState.id != "on" {
-		t.Errorf("Expected landing state 'on', got '%s'", runner.currentState.id)
+	if !ok || runner.currentState.Id != "on" {
+		t.Errorf("Expected landing state 'on', got '%s'", runner.currentState.Id)
 	}
 
 }
